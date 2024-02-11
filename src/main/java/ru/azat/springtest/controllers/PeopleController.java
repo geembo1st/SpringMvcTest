@@ -35,13 +35,13 @@ import ru.azat.springtest.models.Person;
     @GetMapping("/new")
     public String newPerson(Model model) {
         model.addAttribute("person", new Person());
-        return "/people/new";
+        return "people/new";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
-            return "/people/new";
+            return "people/new";
 
         personDAO.save(person);
         return "redirect:/people";
@@ -50,14 +50,14 @@ import ru.azat.springtest.models.Person;
     @GetMapping("/{id}/edit")
     public String edit(Model model,@PathVariable("id") int id) {
         model.addAttribute("person",personDAO.show(id));
-        return "/people/edit";
+        return "people/edit";
     }
 
     @PostMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if(bindingResult.hasErrors())
-            return "/people/edit";
+            return "people/edit";
 
         personDAO.update(id, person);
         return "redirect:/people";
