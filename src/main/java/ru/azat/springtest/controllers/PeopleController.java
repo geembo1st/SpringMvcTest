@@ -42,7 +42,6 @@ import ru.azat.springtest.models.Person;
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "people/new";
-
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -53,12 +52,11 @@ import ru.azat.springtest.models.Person;
         return "people/edit";
     }
 
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if(bindingResult.hasErrors())
             return "people/edit";
-
         personDAO.update(id, person);
         return "redirect:/people";
     }
