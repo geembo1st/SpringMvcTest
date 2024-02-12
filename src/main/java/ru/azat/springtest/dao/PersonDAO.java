@@ -1,44 +1,47 @@
 package ru.azat.springtest.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.azat.springtest.models.Person;
-
-import java.util.ArrayList;
 import java.util.List;
 @Component
 public class PersonDAO {
     private static int PEOPLE_COUNT;
-    private List<Person> people;
+    private final SessionFactory sessionFactory;
 
-    {
-        people = new ArrayList<>();
-        people.add(new Person(++PEOPLE_COUNT,"Tom",24,"tom@mail.ru"));
-        people.add(new Person(++PEOPLE_COUNT,"Bob",52,"bob@mail.ru"));
-        people.add(new Person(++PEOPLE_COUNT,"Mike",18,"mike@mail.ru"));
-        people.add(new Person(++PEOPLE_COUNT,"Katy",34,"katy@mail.ru"));
+    @Autowired
+    public PersonDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
-
+    @Transactional(readOnly = true)
     public List<Person> index() {
-        return people;
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select p from Person p", Person.class).getResultList();
     }
-
+    @Transactional(readOnly = true)
     public Person show(int id) {
-        return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Person.class,id);
     }
-
+    @Transactional
     public void save(Person person) {
-        person.setId(++PEOPLE_COUNT);
-        people.add(person);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(person);
     }
-
+    @Transactional
     public void update(int id, Person personUpdate) {
-        Person personToBeUpdate = show(id);
+        Session session = sessionFactory.getCurrentSession();
+        Person personToBeUpdate = session.get(Person.class,id);
         personToBeUpdate.setName(personUpdate.getName());
         personToBeUpdate.setAge(personUpdate.getAge());
         personToBeUpdate.setEmail(personUpdate.getEmail());
     }
-
+    @Transactional
     public void delete(int id) {
-        people.removeIf(person -> person.getId() == id);
+        Session session = sessionFactory.getCurrentSession();
+        session.remove(session.get(Person.class, id));
     }
 }
