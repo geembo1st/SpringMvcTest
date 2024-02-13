@@ -12,7 +12,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="933b7101-f6a7-4eb9-a976-5ef6f6eaefdc">
+    <connection id="9dbc4116-0c6c-4cb8-93a6-89367833bb85">
       <console name="postgresSpringTest" type="STANDARD" schema="postgresSpringTest" session="Main" />
     </connection>
   </component>
@@ -22,13 +22,24 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="933b7101-f6a7-4eb9-a976-5ef6f6eaefdc" active="true" signed="true">
+      <connection id="9dbc4116-0c6c-4cb8-93a6-89367833bb85" active="true" signed="true">
         <database>
           <name value="postgresSpringTest" />
           <description value="" />
