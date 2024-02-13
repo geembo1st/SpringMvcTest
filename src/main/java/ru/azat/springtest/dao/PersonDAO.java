@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.azat.springtest.models.Person;
+
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -36,6 +38,7 @@ public class PersonDAO {
     }
     @Transactional
     public void save(Person person) {
+        person.getCreatedAt(new Date());
         Session session = sessionFactory.getCurrentSession();
         session.save(person);
     }
@@ -52,4 +55,5 @@ public class PersonDAO {
         Session session = sessionFactory.getCurrentSession();
         session.remove(session.get(Person.class, id));
     }
+
 }
